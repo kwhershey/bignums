@@ -92,8 +92,8 @@ vector<short> subtract(vector<short> a, vector<short> b){
 	while(b.size()>0){
 		if(a.back() < b.back()){
 			int i=2;
-			while((a.size()-i)==0){
-				a[a.size()-i]=9;
+			while(a[a.size()-i] == 0){
+				a[a.size()-i] = 9;
 				i++;
 			}
 			a[a.size()-i]--;
