@@ -124,10 +124,15 @@ vector<short> multiply(vector<short> a, vector<short> b)
 	product.push_back(0);
 
 	while(b.size()>0){
+		/* the following could all be:
+		   for(digit = d.back(), b.pop_back(); digit > 0; digit--)
+			product = add(product, a);
+		*/
 		digit=b.back();
 		b.pop_back();
-		for(digit;digit>0;digit--){
+		while(digit > 0) {
 			product=add(product,a);
+			digit--;
 		}
 		a.push_back(0);
 	}
