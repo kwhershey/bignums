@@ -1,3 +1,4 @@
+/* -*-indent-tabs-mode: t; c-basic-offset: 8 -*- */
 //handles adding, subtracting, multiplying and dividing positive integers.
 
 #include <iostream>

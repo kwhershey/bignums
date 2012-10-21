@@ -1,3 +1,4 @@
+/* -*-indent-tabs-mode: t; c-basic-offset: 8 -*- */
 //handles adding, subtracting, multiplying and dividing positive integers.
 
 #include <iostream>
@@ -100,7 +101,7 @@ vector<short> subtract(vector<short> a, vector<short> b){
 		}
 		diff.push_back(a.back()-b.back());
 		a.pop_back();
-		b.pop_back();	
+		b.pop_back();
 	}
 	while(a.size()>0){
 		diff.push_back(a.back());
