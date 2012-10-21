@@ -28,14 +28,30 @@ int main(){
 	print(a);
 	print(b);
 
-	//if(greaterEq(a,b))
-	//	cout << "greaterEq\n";
-	//sum=reverse(a);
-	//sum=multiply(a,b);
-	sum=divide(a,b);
-	//sum=add(a,b);
-	//sum=subtract(a,b);
+	if(greaterEq(a,b))
+		cout << "greaterEq\n";
 
+	sum=reverse(a);
+	print(sum);
+
+	sum=multiply(a,b);
+	print(sum);
+
+	sum=multiply(a,a);
+	print(sum);
+
+	sum=subtract(b,a);
+	print(sum);
+
+	// sum=divide(a,b);
+	sum=subtract(a,b);
+	print(sum);
+
+	sum=add(a,b);
+	print(sum);
+
+	sum=add(a,a);
+	sum=add(sum,a);
 	print(sum);
 	return 0;
 }
