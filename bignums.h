@@ -107,7 +107,7 @@ vector<short> subtract(vector<short> a, vector<short> b){
 		diff.push_back(a.back());
 		a.pop_back();
 	}
-	while(diff.size()>1 &&diff.back()==0){
+	while(diff.size()>1 && diff.back()==0){
 		diff.pop_back();
 	}
 	diff=reverse(diff);
