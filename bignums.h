@@ -2,6 +2,7 @@
 //handles adding, subtracting, multiplying and dividing positive integers.
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -44,11 +45,8 @@ bool greaterEq(vector<short> a, vector<short> b)
 //fully functioning for positive
 vector<short> reverse(vector<short> a)
 {
-	short temp;
-	for(int i =0;i<a.size()/2;i++){
-		temp=a[i];
-		a[i]=a[a.size()-i-1];
-		a[a.size()-i-1]=temp;
+	for(int i=0; i<a.size()/2; i++){
+		swap(a[i], a[a.size()-i-1]);
 	}
 	return a;
 }
