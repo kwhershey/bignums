@@ -55,27 +55,27 @@ vector<short> reverse(vector<short> a)
 //functioning for positive ints
 vector<short> add(vector<short> a, vector<short> b)
 {
-	vector<short> sum;
+	// store the result in a
+	int i;
 	short carry=0;
-	short digitSum=0;
 
-	while(a.size()>0 || b.size()>0){
-		digitSum=0;
-		if(a.size()>0){
-			digitSum+=a.back();
-			a.pop_back();
-		}
-		if(b.size()>0){
-			digitSum+=b.back();
-			b.pop_back();
-		}
-		sum.push_back((digitSum+carry)%10);
-		carry=(digitSum+carry)/10;
+	// we assume a >= b
+	if(!greaterEq(a, b))
+		swap(a, b);
+
+	a = reverse(a);
+	for(i=0; b.size() > 0; i++)
+	{
+		a[i] += b.back() + carry;
+		carry = a[i] / 10;
+		a[i] %= 10;
+		b.pop_back();
 	}
-	if(carry!=0)
-		sum.push_back(carry);
-	sum=reverse(sum);
-	return sum;
+
+	if (i >= a.size() && carry)
+		a.push_back(carry);
+
+	return reverse(a);
 }
 
 //returns a-b
