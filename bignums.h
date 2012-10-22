@@ -1,6 +1,8 @@
+/* -*-indent-tabs-mode: t; c-basic-offset: 8 -*- */
 //handles adding, subtracting, multiplying and dividing positive integers.
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -43,11 +45,8 @@ bool greaterEq(vector<short> a, vector<short> b)
 //fully functioning for positive
 vector<short> reverse(vector<short> a)
 {
-	short temp;
-	for(int i =0;i<a.size()/2;i++){
-		temp=a[i];
-		a[i]=a[a.size()-i-1];
-		a[a.size()-i-1]=temp;
+	for(int i=0; i<a.size()/2; i++){
+		swap(a[i], a[a.size()-i-1]);
 	}
 	return a;
 }
@@ -56,27 +55,27 @@ vector<short> reverse(vector<short> a)
 //functioning for positive ints
 vector<short> add(vector<short> a, vector<short> b)
 {
-	vector<short> sum;
+	// store the result in a
+	int i;
 	short carry=0;
-	short digitSum=0;
 
-	while(a.size()>0 || b.size()>0){
-		digitSum=0;
-		if(a.size()>0){
-			digitSum+=a.back();
-			a.pop_back();
-		}
-		if(b.size()>0){
-			digitSum+=b.back();
-			b.pop_back();
-		}
-		sum.push_back((digitSum+carry)%10);
-		carry=(digitSum+carry)/10;
+	// we assume a >= b
+	if(!greaterEq(a, b))
+		swap(a, b);
+
+	a = reverse(a);
+	for(i=0; b.size() > 0; i++)
+	{
+		a[i] += b.back() + carry;
+		carry = a[i] / 10;
+		a[i] %= 10;
+		b.pop_back();
 	}
-	if(carry!=0)
-		sum.push_back(carry);
-	sum=reverse(sum);
-	return sum;
+
+	if (i >= a.size() && carry)
+		a.push_back(carry);
+
+	return reverse(a);
 }
 
 //returns a-b
@@ -91,8 +90,8 @@ vector<short> subtract(vector<short> a, vector<short> b){
 	while(b.size()>0){
 		if(a.back() < b.back()){
 			int i=2;
-			while((a.size()-i)==0){
-				a[a.size()-i]=9;
+			while(a[a.size()-i] == 0){
+				a[a.size()-i] = 9;
 				i++;
 			}
 			a[a.size()-i]--;
@@ -100,13 +99,13 @@ vector<short> subtract(vector<short> a, vector<short> b){
 		}
 		diff.push_back(a.back()-b.back());
 		a.pop_back();
-		b.pop_back();	
+		b.pop_back();
 	}
 	while(a.size()>0){
 		diff.push_back(a.back());
 		a.pop_back();
 	}
-	while(diff.size()>1 &&diff.back()==0){
+	while(diff.size()>1 && diff.back()==0){
 		diff.pop_back();
 	}
 	diff=reverse(diff);
@@ -123,10 +122,15 @@ vector<short> multiply(vector<short> a, vector<short> b)
 	product.push_back(0);
 
 	while(b.size()>0){
+		/* the following could all be:
+		   for(digit = d.back(), b.pop_back(); digit > 0; digit--)
+			product = add(product, a);
+		*/
 		digit=b.back();
 		b.pop_back();
-		for(digit;digit>0;digit--){
+		while(digit > 0) {
 			product=add(product,a);
+			digit--;
 		}
 		a.push_back(0);
 	}
